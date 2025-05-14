@@ -1,7 +1,14 @@
 {% extends "layouts/main.html" %}
 
+{% if data['version'] == "suggested" %}
+	{% set pageSize = "xl" %}
 {% set pageHeading = "Which datasets have you collected?" %}
-{% set pageSection = "" %}
+	{% set pageSection = "Dataset information" %}
+{% else %}
+	{% set pageSize = "xl" %}
+{% set pageHeading = "Which datasets have you collected?" %}
+	{% set pageSection = "" %}
+{% endif %}
 
 {% block pageTitle %}{{ macroPageTitle.pageTitle(pageHeading) }}{% endblock %}
 
@@ -10,7 +17,44 @@
 <div class="govuk-grid-row">
 	<div class="govuk-grid-column-two-thirds">
 
-        {{ macroPageHeader.pageHeader(pageHeading,pageSection) }}
+        {{ macroPageHeader.pageHeader(pageHeading,pageSection,pageSize) }}
+
+
+		{% if data['version'] == "suggested" %}
+
+		{% if data['linkStatus'] == "change" %}
+		<form method="post" action="/apply/dataset-information/format" >
+		{% else %}
+		<form method="post" action="/apply/dataset-information/format" >
+		{% endif %}
+
+			{{ govukCheckboxes({
+				name: "4_3_datasets",
+				fieldset: {
+					legend: {
+						text: pageHeading,
+						isPageHeading: true,
+						classes: "govuk-fieldset__legend--l govuk-visually-hidden"
+				  	}
+				},
+				hint: {
+					text: "Select all that apply"
+				},
+				items: [
+				  	{ value: "Article 4 direction", text: "Article 4 direction", checked: checked("4_3_datasets", "Article 4 direction") },
+					{ value: "Conservation areas", text: "Conservation areas", checked: checked("4_3_datasets", "Conservation areas") },
+				  	{ value: "Listed buildings", text: "Listed buildings", checked: checked("4_3_datasets", "Listed buildings") },
+				  	{ value: "Tree preservation orders", text: "Tree preservation orders", checked: checked("4_3_datasets", "Tree preservation orders") }
+				]
+			}) }}
+
+            {{ govukButton({
+                text: "Continue"
+            }) }}
+
+        </form>
+
+		{% else %}
 
 		{% if data['linkStatus'] == "change" %}
 		<form method="post" action="/apply/dataset-information/format" >
@@ -43,6 +87,14 @@
             }) }}
 
         </form>
+
+		{% endif %}
+
+		{% if data['version'] == "suggested" %}
+            {{ macroCurrent.pageCurrent(url) }}
+        {% else %}
+            {{ macroSuggested.pageSuggested(url) }}
+        {% endif %}
 
     </div>
 </div>

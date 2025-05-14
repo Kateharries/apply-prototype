@@ -1,0 +1,59 @@
+{% extends "layouts/grantManagement.html" %}
+
+{% set showBackLink = false %}
+{% set showBackApplicationsLink = false %}
+
+
+{% set pageSize = "xl" %}
+{% set pageHeading = "{Name of Grant}" %}
+{% set pageSection = "" %}
+
+{% block pageTitle %}{{ macroPageTitle.pageTitle(pageHeading) }}{% endblock %}
+
+{% block content %}
+
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+
+        <div class="govuk-grid-row">
+	        <div class="govuk-grid-column-two-thirds">        
+
+                {{ macroPageHeader.pageHeader(pageHeading,pageSection,pageSize) }}
+
+            </div>
+        </div>
+
+        {{ xGovukSecondaryNavigation({
+            visuallyHiddenTitle: "Secondary menu",
+            classes: "govuk-!-margin-bottom-7",
+            items: [
+                { text: "Grant details", href: "#", current: true}, 
+                { text: "Forms", href: "#" },
+                { text: "Team", href: "#" },
+                { text: "Assess applications", href: "#" },
+                { text: "Reports", href: "#" },
+                { text: "Payments", href: "#" }
+                
+            ]
+        }) }}
+
+
+        <div class="govuk-grid-row">
+	        <div class="govuk-grid-column-two-thirds"> 
+                <p>To follow.</p>
+            </div>  
+        </div>
+
+
+    </div>
+</div>
+
+{% endblock %}
+
+
+<!-- 
+{ text: "Assess applications", href: "#" },
+                { text: "Recipients", href: "#" },
+                { text: "Payments", href: "#" },
+                { text: "Reports", href: "#" } -->

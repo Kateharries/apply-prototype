@@ -1,0 +1,50 @@
+{% extends "layouts/grantManagement.html" %}
+
+{% set showBackLink = false %}
+{% set showBackApplicationsLink = false %}
+
+
+{% set pageSize = "xl" %}
+{% set pageHeading = "Is the grant monitored?" %}
+{% set pageSection = "Set up a grant" %}
+
+{% block pageTitle %}{{ macroPageTitle.pageTitle(pageHeading) }}{% endblock %}
+
+{% block content %}
+
+
+<div class="govuk-grid-row">
+	<div class="govuk-grid-column-two-thirds">
+
+        {{ macroPageHeader.pageHeader(pageHeading,pageSection,pageSize) }}
+
+        <form method="post" action="/funding/grant-management/grant/profile/primary-contact-details">
+
+            {{ govukRadios({
+                classes: "govuk-radios--inline",
+                name: "grantProfile-monitoring",
+                fieldset: {
+                    legend: {
+                        text: pageHeading,
+                        isPageHeading: false,
+                        classes: "govuk-fieldset__legend govuk-visually-hidden"
+                    }
+                },
+                items: [
+                    { value: "england", text: "Yes" },
+                    { value: "scotland", text: "No" }
+                ]
+            }) }}
+
+
+            {{ govukButton({
+                text: "Continue"
+            }) }}
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}
+
+<!-- *bc* -->

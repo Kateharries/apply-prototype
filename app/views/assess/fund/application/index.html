@@ -1,14 +1,36 @@
-{% extends "layouts/mainAssess.html" %}
+{% if data['version'] == "suggested" %}
+    {% extends "layouts/assess-newNew.html" %}
+{% else %}
+    {% extends "layouts/mainAssess.html" %}
+{% endif %}
 
 {% set showBackLink = false %}
 {% set showBackApplicationsLink = false %}
 
+{% set pageSize = "xl" %}
 {% set pageHeading = "Fund:" %}
 {% set pageSection = "" %}
 
+
 {% block pageTitle %}{{ macroPageTitle.pageTitle(pageHeading) }}{% endblock %}
 
-{% block main %}
+{% block content %}
+
+	{% if data['version'] == "suggested" %}
+
+
+    {% else %}
+
+<div class="govuk-width-container">
+	{{ govukBackLink({
+		text: "Back to assessment landing",
+		href: "javascript:history.go(-1)"
+	}) }}
+
+	<div class="govuk-!-display-inline-block float-right govuk-!-margin-top-3 nag">
+		<a href="/assess/help">Get help</a>  <a href="#">Log out</a>
+	</div>
+</div>
 
 <div class="x-govuk-masthead">
 	<div class="govuk-width-container">
@@ -16,10 +38,16 @@
 
       	<div class="govuk-grid-row">
         	<div class="govuk-grid-column-two-thirds-from-desktop">
-          		<h1 class="x-govuk-masthead__title">{{ pageHeading }} <span class="govuk-!-font-weight-regular">Name of fund</span></h1>
+          		<h1 class="x-govuk-masthead__title">{{ pageHeading }} <span class="govuk-!-font-weight-regular">{{ data.fundName or "Digital Planning Improvement" }} Fund</span></h1>
           		<p class="x-govuk-masthead__description govuk-!-font-size-36"><span class="govuk-!-font-weight-bold">Project reference:</span> ZWNEHL</p>
-          		<p class="x-govuk-masthead__description"><span class="govuk-!-font-weight-bold">Project name:</span> E07000038
-				<br><span class="govuk-!-font-weight-bold">Total funding requested:</span> £0.00</p>
+          		<p class="x-govuk-masthead__description"><span class="govuk-!-font-weight-bold">Project name:</span> Sneaker Politics
+				<br>
+
+                {% if data[''] == "" %}
+                <strong class="govuk-tag govuk-tag-white overSizeWhite">NOT STARTED</strong>
+                {% else %}
+                <span class="govuk-!-font-weight-bold">Total funding requested:</span> £0.00</p>
+                {% endif %}
         	</div>
       	</div>
     </div>
@@ -32,8 +60,9 @@
             <div class="govuk-grid-column-one-quarter">
 
                 <h3 class="govuk-heading-m">Assessment actions</h3>
+
                 <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible section_break_blue">
-                <p class="govuk-body"><a href="#" target="_blank">View entire application (opens in new tab)</a></p>
+                <p class="govuk-body"><a href="/assess/fund/application/all" target="_blank">View entire application (opens in new tab)</a></p>
 
                 <div class="govuk-!-margin-top-7 govuk-!-margin-bottom-5" id="comments">
                     <h2 class="govuk-heading-m govuk-!-margin-bottom-2">Comments</h2>
@@ -74,7 +103,7 @@
                             <div class="govuk-!-padding-top-4">
                                 <div class="govuk-warning-text">
                                     <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-                                    <strong class="govuk-warning-text__text"><span class="govuk-warning-text__assistive">Warning</span>No flags raised yet, so no history to display.</strong>
+                                    <strong class="govuk-warning-text__text"><span class="govuk-warning-text__assistive"></span>No flags raised yet, so no history to display.</strong>
                                 </div>
                             </div>
                         </details>
@@ -115,7 +144,13 @@
 
 
 
+    <!-- Switcher between current and suggested changes -->
+    {% include "/assess/includes/version-switch.html" %}
+
     </div>
 </div>
 
+
+
+{% endif %}
 {% endblock %}

@@ -1,0 +1,43 @@
+{% extends "layouts/grantManagement.html" %}
+
+{% set showBackLink = false %}
+{% set showBackApplicationsLink = false %}
+
+
+{% set pageSize = "xl" %}
+{% set pageHeading = "Grants" %}
+{% set pageSection = "" %}
+
+{% block pageTitle %}{{ macroPageTitle.pageTitle(pageHeading) }}{% endblock %}
+
+{% block content %}
+
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+
+        <div class="govuk-grid-row">
+	        <div class="govuk-grid-column-two-thirds">        
+
+                {{ macroPageHeader.pageHeader(pageHeading,pageSection,pageSize) }}
+
+                <p>Needs new heading</p>
+                <p>This page will show a list of all the grants currently in the system.</p>
+                <p>Or the signed in user can add a grant.</p>
+
+            </div>
+        </div>
+       
+
+        <form method="post" action="/funding/grant-management/grant/profile/setup-a-grant">
+            {{ govukButton({
+                text: "Add a grant"
+            }) }}
+        </form>
+
+
+    </div>
+</div>
+
+{% endblock %}
+<!-- *bc* -->

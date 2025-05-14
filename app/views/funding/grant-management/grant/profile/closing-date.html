@@ -1,0 +1,48 @@
+{% extends "layouts/grantManagement.html" %}
+
+{% set showBackLink = false %}
+{% set showBackApplicationsLink = false %}
+
+
+{% set pageSize = "xl" %}
+{% set pageHeading = "What date will grant applications open?" %}
+{% set pageSection = "Set up a grant" %}
+
+{% block pageTitle %}{{ macroPageTitle.pageTitle(pageHeading) }}{% endblock %}
+
+{% block content %}
+
+
+<div class="govuk-grid-row">
+	<div class="govuk-grid-column-two-thirds">
+
+        {{ macroPageHeader.pageHeader(pageHeading,pageSection,pageSize) }}
+
+        <form method="post" action="/funding/grant-management/grant/profile/description">
+
+            {{ govukDateInput({
+                id: "grantProfile-closingDate",
+                namePrefix: "grantProfile-closingDate",
+                fieldset: {
+                    legend: {
+                        text: pageHeading,
+                        isPageHeading: true,
+                        classes: "govuk-fieldset__legend govuk-visually-hidden"
+                    }
+                },
+                hint: {
+                  text: "For example, 27 7 2025"
+                }
+            }) }}
+
+            {{ govukButton({
+                text: "Continue"
+            }) }}
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}
+
+<!-- *bc* -->

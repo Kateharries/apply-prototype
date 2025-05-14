@@ -2,19 +2,15 @@
 
 {% import "macros/page-title.njk" as macroPageTitle %}
 {% import "macros/page-header.njk" as macroPageHeader %}
-
-{% set serviceName %}
-{% if data['fundService'] == "assess" %}
-    Assess grant applications
-{% endif %}
-{% endset %}
+{% import "macros/suggested-page.njk" as macroSuggested %}
+{% import "macros/current-page.njk" as macroCurrent %}
+{% import "macros/page-pagination.njk" as macroPagePagination %}
 
 <!-- Overides the max width only in assess -->
 {% block stylesheets %}
-  {{ super() }}
-  <link href="/public/css/assessOveride.css" rel="stylesheet" type="text/css" />
+	{{ super() }}
+  	<link href="/public/css/assessOveride.css" rel="stylesheet" type="text/css" />
 {% endblock %}
-<!-- // -->
 
 
 {% block header %}
@@ -29,7 +25,7 @@
 
     {% elif data['loggedIn'] == "no" %}
 
-    	{{ govukHeader({
+      	{{ govukHeader({
         	homepageUrl: "/?loggedIn=no",
         	serviceName: "Assess grant applications",
         	serviceUrl: "/?loggedIn=no"
@@ -40,120 +36,49 @@
 {% endblock %}
 
 
-    {% block beforeContent %}
+{% block beforeContent %}
 
-        <!-- Phasebanner -->
-        {% if showPhaseBanner != false %}
-            {{ govukPhaseBanner({
-                tag: { text: "Prototype" },
-                html: "This is a prototype. It is not a real service."
-            }) }}
-        {% endif %}
+	<!-- Phasebanner -->
+	{% if showPhaseBanner == true %}
+		{{ govukPhaseBanner({
+			tag: { text: "Prototype" },
+			html: "This is a prototype. It is not a real service."
+		}) }}
+	{% endif %}
 
-        <!-- Primary Nav -->
-        {% if showNav == true %}
-
-            {% if data['nav'] == "users" %}
-            {{ xGovukSecondaryNavigation({
-                visuallyHiddenTitle: "Secondary menu",
-                items: [
-                    { text: "Users", href: "/users/?nav=users", current: true },
-                    { text: "Fund reports", href: "/funds/dashboard?nav=pro" }
-                ]
-            }) }}
-
-            {% else %}
-
-            {{ xGovukSecondaryNavigation({
-                visuallyHiddenTitle: "Secondary menu",
-                items: [
-                    { text: "Users", href: "/users/?nav=users" },
-                    { text: "Fund reports", href: "/funds/dashboard?nav=pro", current: true }
-                ]
-            }) }}
-
-            {% endif %}
-
-
-        {% endif %}
-
-        <!-- Back Link -->
-        {% if showBackLink == true %}
-            {{ govukBackLink({
-                text: "Back",
-                href: "javascript:history.go(-1)"
-            }) }}
-        {% endif %}
-
-        {% if showBackApplicationsLink != false %}
-            {{ govukBackLink({
-                text: "Go back to application overview",
-                href: "/apply/task-list"
-            }) }}
-        {% endif %}
-
-        {% if showBackApplicationsOverview == true %}
-            {{ govukBackLink({
-                text: "Back to your applications",
-                href: "/apply/applications"
-            }) }}
-        {% endif %}
-
-    <!--
-            {% if showBread == true %}
-            {{ govukBreadcrumbs({
-              items: [
-                { text: "Programme and projects", href: "/funds/dashboard?nav=pro" },
-                { text: "Project name", href: "/funds/reports" }
-
-              ]
-            }) }}
-            {% endif %} -->
-
-    <!--
-             {{ xGovukPrimaryNavigation({
-                visuallyHiddenTitle: "Navigation",
-                  items: [
-                    { text: "Pathfinders", href: "/programmes", current: true },
-                    { text: "Levelling up Fund", href: "#" }
-                ]
-            }) }} -->
-
-            {% if data['loggedIn'] == "yes" %}
-
-            {{ govukServiceNavigation({
-                navigation: [
-                  {
-                    href: "/assess/help",
-                    text: "Get help"
-                  },
-                  {
-                    href: "#",
-                    text: "Log out",
-                    active: true
-                  }
-
-                ]
-              }) }}
-
-              {% endif %}
+    <!-- Back Link -->
+	<!-- <div class="govuk-grid-row">
+		<div class="govuk-grid-column-two-thirds">
+	{% if showBackLink == true %}
+		{{ govukBackLink({
+			text: "Back",
+			href: "javascript:history.go(-1)"
+		}) }}
+	{% else %}
+	{% endif %}
+		</div>
+		<div class="govuk-grid-column-one-third govuk-!-text-align-right">
+    {% if data['loggedIn'] == "yes" %}
+		{{ govukServiceNavigation({
+			navigation: [
+				{ href: "/assess/help", text: "Get help" },
+				{ href: "#", text: "Log out", active: true }
+			]
+		}) }}
+    {% endif %}
+</div>
+	</div> -->
 
 
+{% endblock %}
 
-    {% endblock %}
 
-
-    {% block footer %}
-        {{ govukFooter({
-          meta: {
+{% block footer %}
+    {{ govukFooter({
+        meta: {
             html: '
-
-              <p><a class="govuk-body-s govuk-footer__link" href="/manage-prototype/clear-data" >Clear data</a> | <a class="govuk-body-s govuk-footer__link" href="/manage-prototype" >Manage prototype</a></p>',
-
-
-            items: [
-
-            ]
-          }
-        }) }}
-      {% endblock %}
+            	<p><a class="govuk-body-s govuk-footer__link" href="/manage-prototype/clear-data" >Clear data</a> | <a class="govuk-body-s govuk-footer__link" href="/manage-prototype" >Manage prototype</a></p>',
+            items: [ ]
+        }
+    }) }}
+{% endblock %}

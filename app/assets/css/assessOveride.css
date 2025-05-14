@@ -1,6 +1,23 @@
 .govuk-width-container {
     max-width: 1600px;
 }
+    @media (min-width: 1020px) {
+        .govuk-width-container {
+            margin-right: max(30px, calc(15px + env(safe-area-inset-right)));
+            margin-left: max(30px, calc(15px + env(safe-area-inset-right)));
+        }
+    }
+    @media (min-width: 1600px) {
+        .govuk-width-container {
+            margin-right: auto;
+            margin-left: auto;
+        }
+    }
+
+/* .govuk-main-wrapper {
+    padding-top: 0;
+    padding-bottom: 0;
+} */
 
 .search-button {
     margin-bottom: 0;
@@ -9,10 +26,8 @@
 }
 
 .search-input {
-    width: 16em;
+    /* width: 16em; */
 }
-
-
 
 .govuk-service-navigation {
     border-bottom: none;
@@ -25,12 +40,18 @@
     font-size: 16px;
 }
 
-nav {
-    float: right;
+
+
+.nag a {
+    margin-left: 14px;
 }
 
 .govuk-service-navigation__container {
 
+    float: right;
+}
+
+.float-right {
     float: right;
 }
 
@@ -59,3 +80,93 @@ nav {
 .fright {
     float: right;
 }
+
+.section_break_blue {
+    border-bottom: 4px solid #1d70b8;
+    margin: 20px 0;
+}
+
+.theme-blue {
+    border-top: 4px solid #1d70b8;
+    padding-top: 20px;
+}
+
+.theme-grey {
+    border-top: 4px solid #b1b4b6;
+    padding-top: 20px
+}
+
+.govuk-tag--white {
+    background-color: white;
+}
+
+
+.template-answer {
+    border: 3px #b1b4b6 solid;
+    /* padding: 25px 25px 4px; */
+    /* background-color: #fff; */
+}
+
+.overSize {
+    max-width: 500px;
+    background-color: #1d70b8;
+    color: #fff;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.overSizeGrey {
+    max-width: 500px;
+    background-color: #fff;
+    color: #000;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.overSizeWhite {
+    max-width: 500px;
+    background-color: #fff;
+    color: #000;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+
+
+.govuk-summary-card__title-wrapper.summaryBackground {
+    text-size-adjust: 100%;
+    border-bottom: 1px solid transparent;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    padding: 15px 20px;
+    background-color: #505a5f;
+}
+
+.govuk-summary-card__title {
+    color: #ffffff;
+}
+
+
+.govuk-summary-card {
+    border: 4px solid #505a5f;
+
+}
+
+
+a:link.summaryLinkOveride, .govuk-link:link.summaryLinkOveride {
+    color: #ffffff !important;
+}
+
+.theme {
+    border-top: 4px solid #b1b4b6;
+}
+
+
+
+// .govuk-width-container {
+//     max-width: 1600px;
+// }

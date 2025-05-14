@@ -3,10 +3,15 @@
 {% set showBackLink = false %}
 {% set showBackApplicationsLink = false %}
 
-
-
+{% if data['version'] == "suggested" %}
+	{% set pageSize = "xl" %}
+{% set pageHeading = "Your applications for funding" %}
+	{% set pageSection = "" %}
+{% else %}
+	{% set pageSize = "xl" %}
 {% set pageHeading = "All applications" %}
-{% set pageSection = "" %}
+	{% set pageSection = "" %}
+{% endif %}
 
 {% block pageTitle %}{{ macroPageTitle.pageTitle(pageHeading) }}{% endblock %}
 
@@ -15,9 +20,18 @@
 <div class="govuk-grid-row">
 	<div class="govuk-grid-column-full">
 
-        {{ macroPageHeader.pageHeader(pageHeading,pageSection) }}
+        {{ macroPageHeader.pageHeader(pageHeading,pageSection,pageSize) }}
+
+		{% if data['version'] == "suggested" %}
+
+                <h2 class="govuk-heading-m">Community Ownership Fund</h2>
+                {% include "/apply/includes/tables/fund.html" %}
+
+                <h2 class="govuk-heading-m">Digital Planning Improvement Fund</h2>
+                {% include "/apply/includes/tables/fund.html" %}
 
 
+		{% else %}
         <!-- Dynamic data -->
 
         <p>You have started {{ data.applicationsStarted or "1" }} applications using this email address.</p>
@@ -61,6 +75,16 @@
               </div>
             </div>
           </div>
+
+		{% endif %}
+
+
+        {% if data['version'] == "suggested" %}
+        	{{ macroCurrent.pageCurrent(url) }}
+        {% else %}
+            {{ macroSuggested.pageSuggested(url) }}
+        {% endif %}
+
 
     </div>
 </div>

@@ -1,7 +1,15 @@
 {% extends "layouts/main.html" %}
 
+
+{% if data['version'] == "suggested" %}
+    {% set pageSize = "xl" %}
+{% set pageHeading = "What we need to know" %}
+    {% set pageSection = "Organisation information" %}
+{% else %}
+    {% set pageSize = "xl" %}
 {% set pageHeading = "Organisation information" %}
-{% set pageSection = "" %}
+    {% set pageSection = "" %}
+{% endif %}
 
 {% block pageTitle %}{{ macroPageTitle.pageTitle(pageHeading) }}{% endblock %}
 
@@ -10,7 +18,25 @@
 <div class="govuk-grid-row">
 	<div class="govuk-grid-column-two-thirds">
 
-        {{ macroPageHeader.pageHeader(pageHeading,pageSection) }}
+        {{ macroPageHeader.pageHeader(pageHeading,pageSection,pageSize) }}
+
+        {% if data['version'] == "suggested" %}
+
+        <p class="govuk-body">In this section, you’ll need to tell us:</p>
+        <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-7">
+            <li>the name of your organisation</li>
+            <li>details about your project sponsor</li>
+            <li>about your section 151 officer</li>
+            <li>details for your lead contact</li>
+        </ul>
+
+        <form method="post" action="/apply/organisation/name?linkStatus=" >
+            {{ govukButton({
+                text: "Continue"
+            }) }}
+        </form>
+
+        {% else %}
 
         <p class="govuk-body govuk-!-font-weight-bold">In this section, we'll ask about:</p>
         <ul class="govuk-list govuk-list--bullet">
@@ -25,6 +51,16 @@
                 text: "Continue"
             }) }}
         </form>
+
+        {% endif %}
+
+
+        {% if data['version'] == "suggested" %}
+            {{ macroCurrent.pageCurrent(url) }}
+      	{% else %}
+        	{{ macroSuggested.pageSuggested(url) }}
+      	{% endif %}
+
 
     </div>
 </div>

@@ -1,0 +1,74 @@
+{% extends "layouts/grantManagement.html" %}
+
+{% set showBackLink = false %}
+{% set showBackApplicationsLink = false %}
+
+
+{% set pageSize = "xl" %}
+{% set pageHeading = "Do you have a Government Grants Information System (GGIS) reference number?" %}
+{% set pageSection = "Set up a grant" %}
+
+{% block pageTitle %}{{ macroPageTitle.pageTitle(pageHeading) }}{% endblock %}
+
+{% block content %}
+
+
+<div class="govuk-grid-row">
+	<div class="govuk-grid-column-two-thirds">
+
+        {{ macroPageHeader.pageHeader(pageHeading,pageSection,pageSize) }}
+
+        
+        {% if data['status'] == "change" %}
+            <form method="post" action="/funding/grant-management/grant/profile/summary">
+				<input type="hidden" name="status" id="status" value="" />
+      	{% else %}
+          	<form method="post" action="/funding/grant-management/grant/profile/monitoring"><form class="form" action="/grant/profile/senior-officer" method="post">
+        {% endif %}
+
+				{% set emailHtml %}
+
+					{{ govukInput({
+						id: "grantProfile-ggisNumber",
+						name: "grantProfile-ggisNumber",
+						type: "number",
+						value: data.grantProfile-ggisNumber,
+						autocomplete: "number",
+						spellcheck: false,
+						classes: "govuk-!-width-two-thirds",
+						label: {
+							text: "GGIS reference number"
+						}
+					}) }}
+				
+				{% endset -%}
+
+
+
+				{{ govukRadios({          
+					name: "grantProfile-ggis",
+					id: "grantProfile-ggis",
+					fieldset: {
+						legend: {
+							text: pageHeading,
+							isPageHeading: true,
+							classes: "govuk-fieldset__legend govuk-visually-hidden"
+						}
+					},
+					items: [
+						{ value: "Yes", text: "Yes", conditional: { html: emailHtml }, checked: checked("grantProfile-ggis", "Yes") },
+						{ value: "No", text: "No", checked: checked("grantProfile-ggis", "No") }            
+					]
+				}) }}
+
+            	{{ govukButton({
+                	text: "Continue"
+            	}) }}
+        	</form>
+
+    </div>
+</div>
+
+{% endblock %}
+
+<!-- *bc* -->

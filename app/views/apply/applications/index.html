@@ -5,23 +5,28 @@
 
 
 {% if data['fundName'] == "High Street Rental Auctions" %}
-    {% set pageHeading = "Your applications for High Street Rental Auction" %}
+    {% set pageSize = "xl" %}
+{% set pageHeading = "Your applications for High Street Rental Auction" %}
     {% set pageSection = "High Street Rental Auctions fund Refurbishment project" %}
 {% elif data['fundName'] == "Community Ownership Fund" %}
-    {% set pageHeading = "Your applications for Community Ownership Fund" %}
+    {% set pageSize = "xl" %}
+{% set pageHeading = "Your applications for Community Ownership Fund" %}
     {% set pageSection = "Community Ownership Fund Round 4 Window 1" %}
 {% elif data['fundName'] == "Digital Planning Improvement" %}
     <!-- Suggested -->
     {% if data['version'] == "suggested" %}
-        {% set pageHeading = "Your applications" %}
-        {% set pageSection = "Digital Planning Improvement Fund (Round 3)" %}
+        {% set pageSize = "xl" %}
+{% set pageHeading = "Your applications" %}
+        {% set pageSection = "Digital Planning Improvement Fund" %}
     {% else %}
-        {% set pageHeading = "Your applications for Digital Planning Improvement Fund" %}
+        {% set pageSize = "xl" %}
+{% set pageHeading = "Your applications for Digital Planning Improvement Fund" %}
         {% set pageSection = "" %}
     {% endif %}
 
 {% else %}
-    {% set pageHeading = "Your applications for {fund details}" %}
+    {% set pageSize = "xl" %}
+{% set pageHeading = "Your applications for {fund details}" %}
     {% set pageSection = "Fund name and round information" %}
 {% endif %}
 
@@ -38,8 +43,8 @@
 
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-two-thirds">
-                    {{ macroPageHeader.pageHeader(pageHeading,pageSection) }}
-                
+                    {{ macroPageHeader.pageHeader(pageHeading,pageSection,pageSize) }}
+
 
             {% if data['fundName'] == "High Street Rental Auctions" %}
 
@@ -59,9 +64,9 @@
 
 
             {% elif data['fundName'] == "Digital Planning Improvement" %}
-                            
+
                 <!-- <h2 class="govuk-heading-l">{{ data.fundRound }}</h2>                                 -->
-                <div class="govuk-inset-text govuk-!-margin-bottom-6">        
+                <div class="govuk-inset-text govuk-!-margin-bottom-6">
                     <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-1">Submission deadline</p>
                     <p class="govuk-obody">{{ data.fundDeadlineDate | govukDateTime }}</p>
                 </div>
@@ -76,7 +81,8 @@
                     ( data['section4_3'] == "yes") or
                     ( data['section5_1'] == "yes") or
                     ( data['section6_1'] == "yes")) %}
-                <p class="govuk-body govuk-!-margin-bottom-7">You have not started any applications for this funding using <strong>{{ data['magicLinkEmail'] or "test@apply.mhclg.gov.uk"  }}</strong>.</p>
+                <p class="govuk-body govuk-!-margin-bottom-7">You have not started any applications for this funding.</p>
+                <!-- <p class="govuk-body govuk-!-margin-bottom-7">You have not started any applications for this funding using <strong>{{ data['magicLinkEmail'] or "test@apply.mhclg.gov.uk"  }}</strong>.</p> -->
                 {% endif %}
 
                 <form method="post" action="/apply/task-list" >
@@ -91,40 +97,39 @@
                         ( data['section4_3'] == "yes") or
                         ( data['section5_1'] == "yes") or
                         ( data['section6_1'] == "yes")) %}
-    
+
                             {{ govukButton({
                                 text: "Start new application",
                                 classes: "govuk-button--secondar"
                             }) }}
-    
+
                         {% else %}
                             {{ govukButton({
-                                text: "Start new application"
+                                text: "Start application for Round X"
                             }) }}
                         {% endif %}
                 </form>
 
 
-                
+
                 </div>
             </div>
 
-                
+
                 <table class="govuk-table">
                     <caption class="govuk-table__caption govuk-table__caption--m govuk-visually-hidden">Applications</caption>
                     <thead class="govuk-table__head">
                         <tr class="govuk-table__row">
-                            <th scope="col" class="govuk-table__header">Name</th>
-                            <th scope="col" class="govuk-table__header">Reference</th>
+                            <th scope="col" class="govuk-table__header govuk-!-width-one-quarter">Name</th>
+                            <th scope="col" class="govuk-table__header govuk-!-width-one-quarter">Reference</th>
                             <th scope="col" class="govuk-table__header">Status</th>
                             <th scope="col" class="govuk-table__header">Last edited</th>
-                            
                             <th scope="col" class="govuk-table__header"></th>
                         </tr>
                     </thead>
 
                     {% if (
-                        (data['section1_1'] == "yes") or
+                        ( data['section1_1'] == "yes") or
                         ( data['section2_1'] == "yes") or
                         ( data['section3_1'] == "yes") or
                         ( data['section3_2'] == "yes") or
@@ -160,8 +165,8 @@
                                 </strong>
                                 {% endif %}
                             </td>
-                            <td class="govuk-table__cell">29 January 2025</td>                            
-                            <td class="govuk-table__cell">
+                            <td class="govuk-table__cell">29 January 2025</td>
+                            <td class="govuk-table__cell govuk-table__cell--numeric">
                                 {% if data.applicationStatus %}
 
                                 {% else %}
@@ -173,17 +178,17 @@
                     {% endif %}
                 </table>
 
-            
+
 
 
             {% endif %}
 
-            
 
 
-        {% else %}       
 
-            {{ macroPageHeader.pageHeader(pageHeading,pageSection) }}
+        {% else %}
+
+            {{ macroPageHeader.pageHeader(pageHeading,pageSection,pageSize) }}
 
 
             {% if data['fundName'] == "High Street Rental Auctions" %}

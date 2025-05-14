@@ -1,7 +1,15 @@
 {% extends "layouts/main.html" %}
 
+
+{% if data['version'] == "suggested" %}
+    {% set pageSize = "xl" %}
+{% set pageHeading = "What is the name of your organisation?" %}
+    {% set pageSection = "Organisation information" %}
+{% else %}
+    {% set pageSize = "xl" %}
 {% set pageHeading = "Organisation name" %}
-{% set pageSection = "" %}
+    {% set pageSection = "" %}
+{% endif %}
 
 {% block pageTitle %}{{ macroPageTitle.pageTitle(pageHeading) }}{% endblock %}
 
@@ -10,9 +18,9 @@
 <div class="govuk-grid-row">
 	<div class="govuk-grid-column-two-thirds">
 
-        {{ macroPageHeader.pageHeader(pageHeading,pageSection) }}
+        {{ macroPageHeader.pageHeader(pageHeading,pageSection,pageSize) }}
 
-        <p class="govuk-hint">This must match your registered legal organisation name</p>
+        <p class="govuk-hint">This is the legal registered name of your organisation.</p>
 
         {% if data['linkStatus'] == "change" %}
             <form method="post" action="/apply/organisation/check-your-answers?linkStatus=" >
@@ -42,6 +50,12 @@
             }) }}
 
         </form>
+
+        {% if data['version'] == "suggested" %}
+            {{ macroCurrent.pageCurrent(url) }}
+      	{% else %}
+        	{{ macroSuggested.pageSuggested(url) }}
+      	{% endif %}
 
     </div>
 </div>
